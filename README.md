@@ -26,16 +26,34 @@
 }
 
     .card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      max-width: 420px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      animation: fadeIn 1.5s ease;
-    }
+  position: relative;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 420px;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
 
+   .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url('Mickey1.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(0px);
+  transform: scale(1.1); /* prevents edge blur cuts */
+  z-index: -1;
+}
+
+    .card * {
+  position: relative;
+  z-index: 1;
+}
     h1 {
       font-size: 2.4rem;
       margin-bottom: 10px;
