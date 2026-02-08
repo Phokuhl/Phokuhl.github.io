@@ -34,6 +34,9 @@
   color: #fff;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  <div id="noMessage" class="no-message">
+  Hey 😅 unfortunately that’s not an option
+</div>
 }
 
    .card::before {
@@ -128,6 +131,13 @@
       display: none;
       animation: fadeIn 1s ease;
     }
+    .no-message {
+  display: none;
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #ffd1dc;
+  animation: fadeIn 0.6s ease;
+}
   </style>
 </head>
 <body>
@@ -142,7 +152,7 @@
     <div class="buttons">
       <button class="yes" onclick="sayYes()">Yes 💘</button>
       <button class="no"
-  ontouchstart="moveNo(this)"
+  ontouchstart="handleNo(this)"
   onmouseenter="moveNo(this)">
   No 🙈</button>
     </div>
@@ -158,7 +168,19 @@
       document.getElementById('message').style.display = 'block';
       createHearts();
     }
+     function handleNo(btn) {
+    moveNo(btn);
 
+    const msg = document.getElementById('noMessage');
+    msg.style.display = 'block';
+
+    if (navigator.vibrate) {
+      navigator.vibrate(40);
+    }
+       setTimeout(() => {
+  msg.style.display = 'none';
+}, 2500);
+  }
       function moveNo(btn) {
     const card = btn.closest('.card');
     const cardRect = card.getBoundingClientRect();
@@ -172,9 +194,7 @@
     btn.style.position = 'absolute';
     btn.style.left = x + 'px';
     btn.style.top = y + 'px';
-        if (navigator.vibrate) {
-  navigator.vibrate(50);
-}
+        
   }
 
     function createHearts() {
