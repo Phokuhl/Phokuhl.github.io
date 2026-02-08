@@ -141,7 +141,10 @@
 
     <div class="buttons">
       <button class="yes" onclick="sayYes()">Yes 💘</button>
-      <button class="no" onmouseover="moveNo(this)">No 🙈</button>
+      <button class="no"
+  ontouchstart="moveNo(this)"
+  onmouseenter="moveNo(this)">
+  No 🙈</button>
     </div>
 
     <div class="message" id="message">
@@ -156,11 +159,23 @@
       createHearts();
     }
 
-    function moveNo(btn) {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
-    }
+      function moveNo(btn) {
+    const card = btn.closest('.card');
+    const cardRect = card.getBoundingClientRect();
+
+    const maxX = cardRect.width - btn.offsetWidth;
+    const maxY = cardRect.height - btn.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    btn.style.position = 'absolute';
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+        if (navigator.vibrate) {
+  navigator.vibrate(50);
+}
+  }
 
     function createHearts() {
       const heartsContainer = document.getElementById('hearts');
